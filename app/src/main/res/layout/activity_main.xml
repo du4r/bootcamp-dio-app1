@@ -7,8 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlMatches"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/fabSimulate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -16,6 +28,20 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:srcCompat="@drawable/ic_baseline_casino_24"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="@string/cd_simulate" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMatches"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/swipeRefreshLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnknownId"
+        tools:listitem="@layout/match_item"
+        tools:itemCount="3"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
