@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dioapp1">
 
+    <uses-permission android:name="android.permission.INTERNET"/>lo
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,7 @@
         android:theme="@style/Theme.DioApp1">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".DetailActivity"
+            android:name=".ui.DetailActivity"
             android:theme="@style/Theme.dioapp1.noActionBar"
             android:exported="true" />
 

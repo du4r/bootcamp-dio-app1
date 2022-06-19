@@ -1,4 +1,4 @@
-package com.example.dioapp1
+package com.example.dioapp1.ui
 import com.example.dioapp1.databinding.ActivityDetailBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
