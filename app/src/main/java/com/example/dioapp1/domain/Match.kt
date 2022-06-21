@@ -8,5 +8,7 @@ data class Match (
     @SerializedName("local")
     val place: Place,
     @SerializedName("visitante")
-    val awayTeam: Team
+    val awayTeam: Team,
+    @SerializedName("mandante")
+    val homeTeam: Team
     )
