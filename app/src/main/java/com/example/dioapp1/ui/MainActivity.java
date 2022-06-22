@@ -1,5 +1,8 @@
 package com.example.dioapp1.ui;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.dioapp1.R;
@@ -9,6 +12,8 @@ import com.example.dioapp1.domain.Match;
 import com.example.dioapp1.ui.adapter.MatchesAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
+import java.util.Random;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,10 +51,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupFloatActionButton() {
-        // TODO: 20/06/2022  
+        binding.fabSimulate.setOnClickListener(view ->{
+            view.animate().rotationBy(360).setDuration(500).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    Random random = new Random();
+                    for (int i = 0; i < matchesAdapter.getItemCount(); i++) {
+                       Match match = matchesAdapter.getMatches().get(i);
+                       match.getHomeTeam().setScore(random.nextInt( match.getHomeTeam().getStars() + 1 ));
+                        match.getAwayTeam().setScore(random.nextInt( match.getHomeTeam().getStars() + 1 ));
+                        matchesAdapter.notifyItemChanged(i);
+                    }
+                }
+            });
+        });
     }
 
     private void setupMatchesList() {
+       /////////////////
         binding.rvMatches.setHasFixedSize(true);
         binding.rvMatches.setLayoutManager(new LinearLayoutManager(this));
         findMatchesFromApi();
