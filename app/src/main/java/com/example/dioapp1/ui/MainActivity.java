@@ -11,6 +11,8 @@ import com.example.dioapp1.databinding.ActivityMainBinding;
 import com.example.dioapp1.domain.Match;
 import com.example.dioapp1.ui.adapter.MatchesAdapter;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private MatchesApi matchesApi;
-    private MatchesAdapter matchesAdapter;
+    private MatchesAdapter matchesAdapter = new MatchesAdapter(Collections.emptyList());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +53,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupFloatActionButton() {
-        binding.fabSimulate.setOnClickListener(view ->{
+        binding.fabSimulate.setOnClickListener(view -> {
             view.animate().rotationBy(360).setDuration(500).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    Random random = new Random();
                     for (int i = 0; i < matchesAdapter.getItemCount(); i++) {
-                       Match match = matchesAdapter.getMatches().get(i);
-                       match.getHomeTeam().setScore(random.nextInt( match.getHomeTeam().getStars() + 1 ));
-                        match.getAwayTeam().setScore(random.nextInt( match.getHomeTeam().getStars() + 1 ));
+                        Match match = matchesAdapter.getMatches().get(i);
+                        Random random = new Random();
+                        match.getHomeTeam().setScore(random.nextInt(match.getHomeTeam().getStars() + 1));
+                        match.getAwayTeam().setScore(random.nextInt(match.getAwayTeam().getStars() + 1));
                         matchesAdapter.notifyItemChanged(i);
                     }
                 }
-            });
+            }).start();
         });
     }
 
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
        /////////////////
         binding.rvMatches.setHasFixedSize(true);
         binding.rvMatches.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMatches.setAdapter(matchesAdapter);
         findMatchesFromApi();
     }
 
