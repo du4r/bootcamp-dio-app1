@@ -1,4 +1,5 @@
 package com.example.dioapp1.ui;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -57,20 +58,19 @@ public class MainActivity extends AppCompatActivity {
             view.animate().rotationBy(360).setDuration(500).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    for (int i = 0; i < matchesAdapter.getItemCount(); i++) {
+                    Random random = new Random();
+                    for (int i = 0; i < matchesAdapter.getItemCount() ; i++) {
                         Match match = matchesAdapter.getMatches().get(i);
-                        Random random = new Random();
-                        match.getHomeTeam().setScore(random.nextInt(match.getHomeTeam().getStars() + 1));
-                        match.getAwayTeam().setScore(random.nextInt(match.getAwayTeam().getStars() + 1));
+                        match.getHomeTeam().setScore(random.nextInt(match.getHomeTeam().getStars()) + 1);
+                        match.getAwayTeam().setScore(random.nextInt(match.getAwayTeam().getStars()) + 1);
                         matchesAdapter.notifyItemChanged(i);
                     }
                 }
-            }).start();
+            });
         });
     }
 
     private void setupMatchesList() {
-       /////////////////
         binding.rvMatches.setHasFixedSize(true);
         binding.rvMatches.setLayoutManager(new LinearLayoutManager(this));
         binding.rvMatches.setAdapter(matchesAdapter);
@@ -81,19 +81,20 @@ public class MainActivity extends AppCompatActivity {
         binding.srlMatches.setRefreshing(true);
         matchesApi.getMatches().enqueue(new Callback<List<Match>>() {
             @Override
-            public void onResponse(Call<List<Match>> call, Response<List<Match>> response) {
+            public void onResponse(@NonNull Call<List<Match>> call, @NonNull Response<List<Match>> response) {
                 if(response.isSuccessful()){
                     List<Match> matches = response.body();
                     matchesAdapter = new MatchesAdapter(matches);
                     binding.rvMatches.setAdapter(matchesAdapter);
                 }else{
-                    showErrorMessage();
+                    showErrorMessage("parou no on response");
                 }
                 binding.srlMatches.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<List<Match>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Match>> call, @NonNull Throwable t) {
+             showErrorMessage(t.toString());
              binding.srlMatches.setRefreshing(false);
             }
         });
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void showErrorMessage() {
-        Snackbar.make(binding.rvMatches, R.string.error_api, Snackbar.LENGTH_SHORT).show();
+    private void showErrorMessage(String msg) {
+        Snackbar.make(binding.rvMatches, R.string.error_api + msg, Snackbar.LENGTH_SHORT).show();
     }
 }

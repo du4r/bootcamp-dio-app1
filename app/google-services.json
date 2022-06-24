@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "714070633386",
+    "project_id": "dioapp1-matches",
+    "storage_bucket": "dioapp1-matches.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714070633386:android:264ef9e4a50fb930bad9d3",
+        "android_client_info": {
+          "package_name": "com.example.dioapp1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714070633386-oofaa3geldgv3o0dvp3iju0ilp9ps6qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKayMk8X6sBCBRHFLzceXIEQ2IRfsjDwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714070633386-oofaa3geldgv3o0dvp3iju0ilp9ps6qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
